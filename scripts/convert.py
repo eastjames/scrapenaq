@@ -32,6 +32,7 @@ outputdates = pd.date_range(args.startdate, args.enddate)
 GDNAM = args.GDNAM
 verbose = args.verbose
 param = args.parameter
+varname = param.upper()
 
 missing = [-999]
 ugm3s = (b'<C2><B5>m<C3><B4>', b'\xc2\xb5g/m\xc2\xb3')
@@ -40,9 +41,9 @@ gf.SDATE = int(outputdates[0].strftime('%Y%j'))
 gf.TSTEP = 10000
 del gf.variables['TFLAG']
 gf.updatemeta()
-outf = gf.renameVariables(DUMMY='O3').slice(TSTEP=np.zeros(24, dtype='i'))
-ovar = outf.variables['O3']
-nvar = outf.copyVariable(ovar, key='O3N')
+outf = gf.renameVariables(DUMMY=varname).slice(TSTEP=np.zeros(24, dtype='i'))
+ovar = outf.variables[varname]
+nvar = outf.copyVariable(ovar, key=f'{varname}N')
 
 
 outtmpl = '{0}/{1}/OPENAQ.{1}.{2}.{3}.{0}'.format

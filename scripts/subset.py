@@ -26,6 +26,7 @@ measurement date. The resulting ndjsons are stored in:
 args = parser.parse_args()
 parameter = args.parameter
 dates = pd.date_range(args.startdate, args.enddate)
+print(dates)
 dirpaths = [
     date.strftime('openaq-fetches.s3.amazonaws.com/realtime-gzipped/%Y-%m-%d')
     for date in dates
